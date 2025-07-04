@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
+import { cubicBezier } from "framer-motion/dom";
 import { useEffect, useState } from "react";
 import type { PortfolioData } from "@/lib/data";
 import SplineScene from "./spline-scene";
@@ -16,7 +17,7 @@ export default function UnifiedPortfolio({ data }: UnifiedPortfolioProps) {
     aboutHeading,
     aboutContent,
     education,
-    experience,
+    professionalExperience,
     projects,
     coreCompetencies,
     programmingLanguages,
@@ -26,7 +27,7 @@ export default function UnifiedPortfolio({ data }: UnifiedPortfolioProps) {
   } = data;
 
   // Track which section is active for background changing
-  const [activeSection, setActiveSection] = useState<string>("hero");
+  const [, setActiveSection] = useState<string>("hero");
 
   useEffect(() => {
     const observers = new Map();
@@ -60,7 +61,7 @@ export default function UnifiedPortfolio({ data }: UnifiedPortfolioProps) {
   }, []);
 
   // Animation variants
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -71,14 +72,14 @@ export default function UnifiedPortfolio({ data }: UnifiedPortfolioProps) {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
         duration: 0.6,
-        ease: "easeOut",
+        ease: cubicBezier(0.25, 0.1, 0.25, 1),
       },
     },
   };
@@ -135,7 +136,7 @@ export default function UnifiedPortfolio({ data }: UnifiedPortfolioProps) {
               initial={{ opacity: 0, y: -30, scale: 0.9 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: false, amount: 0.5 }}
-              transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+              transition={{ duration: 0.7, ease: cubicBezier(0.25, 0.1, 0.25, 1), delay: 0.1 }}
               className="text-5xl font-bold mb-12"
             >
               {aboutHeading || "About"}
@@ -202,7 +203,7 @@ export default function UnifiedPortfolio({ data }: UnifiedPortfolioProps) {
               viewport={{ once: false, amount: 0.3 }}
               className="space-y-8"
             >
-              {experience && experience.map((exp, index) => (
+              {professionalExperience && professionalExperience.map((exp, index) => (
                 <motion.div
                   key={index}
                   variants={itemVariants}
@@ -210,7 +211,7 @@ export default function UnifiedPortfolio({ data }: UnifiedPortfolioProps) {
                 >
                   <div className="flex flex-col md:flex-row justify-between mb-4">
                     <div>
-                      <h3 className="text-2xl font-bold">{exp.position}</h3>
+                      <h3 className="text-2xl font-bold">{exp.role}</h3>
                       <p className="text-xl text-white/90">{exp.company}</p>
                     </div>
                     <p className="text-lg text-white/70 mt-2 md:mt-0">
@@ -218,7 +219,7 @@ export default function UnifiedPortfolio({ data }: UnifiedPortfolioProps) {
                     </p>
                   </div>
                   <ul className="list-disc list-inside space-y-2">
-                    {exp.responsibilities && exp.responsibilities.map((item, i) => (
+                    {exp.description && exp.description.map((item, i) => (
                       <li key={i} className="text-white/90">{item}</li>
                     ))}
                   </ul>
@@ -238,7 +239,7 @@ export default function UnifiedPortfolio({ data }: UnifiedPortfolioProps) {
               initial={{ opacity: 0, y: -40, scale: 0.8 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: false, amount: 0.5 }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+              transition={{ duration: 0.8, ease: cubicBezier(0.25, 0.1, 0.25, 1), delay: 0.4 }}
               className="text-5xl font-bold mb-12"
             >
               Skills & Certifications
