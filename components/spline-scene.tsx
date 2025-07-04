@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 export interface SplineSceneProps {
   scene?: string;
@@ -97,15 +97,16 @@ export default function SplineScene({ scene, className, style }: SplineSceneProp
     );
   }
 
-  // Use createElement to avoid TypeScript JSX errors with custom elements
-  return (
-    <spline-viewer
-      ref={viewerRef}
-      url={validSceneUrl}
-      className={className}
-      style={style}
-      events-target="global"
-    />
+  // Use React.createElement to avoid TypeScript JSX errors with custom elements
+  return React.createElement(
+    'spline-viewer' as any,
+    {
+      ref: viewerRef,
+      url: validSceneUrl,
+      className: className,
+      style: style,
+      'events-target': 'global'
+    }
   );
 }
 
