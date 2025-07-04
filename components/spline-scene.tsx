@@ -8,11 +8,18 @@ export interface SplineSceneProps {
   style?: React.CSSProperties;
 }
 
+// Define the type for Spline Viewer element
+interface SplineViewerElement extends HTMLElement {
+  url?: string;
+  'events-target'?: 'global' | string;
+}
+
 export default function SplineScene({ scene, className, style }: SplineSceneProps) {
   const [hasError, setHasError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isViewerReady, setIsViewerReady] = useState(false);
-  const viewerRef = useRef<HTMLElement>(null);
+  // Use the specific type for the ref
+  const viewerRef = useRef<SplineViewerElement | null>(null);
 
   // Ensure scene prop is always defined with a default fallback
   const sceneUrl = scene || "https://prod.spline.design/PBQQBw8bfXDhBo7w/scene.splinecode";
@@ -90,6 +97,7 @@ export default function SplineScene({ scene, className, style }: SplineSceneProp
     );
   }
 
+  // Use createElement to avoid TypeScript JSX errors with custom elements
   return (
     <spline-viewer
       ref={viewerRef}

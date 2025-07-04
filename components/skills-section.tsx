@@ -30,7 +30,7 @@ export default function SkillsSection({ data }: SkillsSectionProps) {
       scale: 1,
       transition: {
         duration: 0.7,
-        ease: "easeOut",
+        ease: "easeOut" as const,
       },
     },
   }
@@ -42,7 +42,7 @@ export default function SkillsSection({ data }: SkillsSectionProps) {
       y: 0,
       transition: {
         duration: 1,
-        ease: "easeOut",
+        ease: "easeOut" as const,
         delay: 0.2,
       },
     },

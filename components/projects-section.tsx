@@ -3,7 +3,6 @@
 import { motion } from "framer-motion"
 import type { PortfolioData } from "@/lib/data"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import Image from "next/image"
 import SplineScene from "@/components/spline-scene"
 
 interface ProjectsSectionProps {
