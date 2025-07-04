@@ -97,9 +97,9 @@ export default function SplineScene({ scene, className, style }: SplineSceneProp
     );
   }
 
-  // Use React.createElement to avoid TypeScript JSX errors with custom elements
+  // Use React.createElement with proper typing to avoid ESLint errors
   return React.createElement(
-    'spline-viewer' as any,
+    'spline-viewer' as keyof JSX.IntrinsicElements,
     {
       ref: viewerRef,
       url: validSceneUrl,
